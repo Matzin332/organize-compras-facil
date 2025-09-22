@@ -1,6 +1,26 @@
-import React, { useMemo } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import React, { useMemo, useRef, useEffect } from 'react';
 import { TrendingUp, TrendingDown, DollarSign, Package } from 'lucide-react';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar, Pie } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
 import { Card } from '@/components/ui/card';
 import { useShoppingContext } from '@/contexts/ShoppingContext';
 import { CATEGORY_LABELS, WASTE_REASON_LABELS } from '@/types/shopping';
@@ -161,22 +181,41 @@ const ReportsView: React.FC = () => {
       {/* Category Analysis */}
       <Card className="p-6">
         <h3 className="text-xl font-semibold mb-4">Análise por Categoria</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={categoryData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis 
-              dataKey="category" 
-              angle={-45}
-              textAnchor="end"
-              height={80}
-              fontSize={12}
-            />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="purchased" fill="#4ade80" name="Comprados" />
-            <Bar dataKey="wasted" fill="#ef4444" name="Desperdiçados" />
-          </BarChart>
-        </ResponsiveContainer>
+        <div className="h-[300px]">
+          <Bar
+            data={{
+              labels: categoryData.map(item => item.category),
+              datasets: [
+                {
+                  label: 'Comprados',
+                  data: categoryData.map(item => item.purchased),
+                  backgroundColor: '#4ade80',
+                  borderRadius: 4,
+                },
+                {
+                  label: 'Desperdiçados',
+                  data: categoryData.map(item => item.wasted),
+                  backgroundColor: '#ef4444',
+                  borderRadius: 4,
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  position: 'top' as const,
+                },
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+            }}
+          />
+        </div>
       </Card>
 
       {/* Waste Reasons */}
@@ -184,25 +223,30 @@ const ReportsView: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="p-6">
             <h3 className="text-xl font-semibold mb-4">Motivos do Desperdício</h3>
-            <ResponsiveContainer width="100%" height={250}>
-              <PieChart>
-                <Pie
-                  data={wasteReasonData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ reason, count }) => `${reason}: ${count}`}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="count"
-                >
-                  {wasteReasonData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
+            <div className="h-[250px]">
+              <Pie
+                data={{
+                  labels: wasteReasonData.map(item => item.reason),
+                  datasets: [
+                    {
+                      data: wasteReasonData.map(item => item.count),
+                      backgroundColor: COLORS,
+                      borderWidth: 2,
+                      borderColor: '#ffffff',
+                    },
+                  ],
+                }}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: 'right' as const,
+                    },
+                  },
+                }}
+              />
+            </div>
           </Card>
 
           <Card className="p-6">
@@ -234,16 +278,41 @@ const ReportsView: React.FC = () => {
       {monthlyData.length > 0 && (
         <Card className="p-6">
           <h3 className="text-xl font-semibold mb-4">Tendência Mensal</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={monthlyData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="purchased" fill="#4ade80" name="Comprados" />
-              <Bar dataKey="wasted" fill="#ef4444" name="Desperdiçados" />
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="h-[300px]">
+            <Bar
+              data={{
+                labels: monthlyData.map(item => item.month),
+                datasets: [
+                  {
+                    label: 'Comprados',
+                    data: monthlyData.map(item => item.purchased),
+                    backgroundColor: '#4ade80',
+                    borderRadius: 4,
+                  },
+                  {
+                    label: 'Desperdiçados',
+                    data: monthlyData.map(item => item.wasted),
+                    backgroundColor: '#ef4444',
+                    borderRadius: 4,
+                  },
+                ],
+              }}
+              options={{
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    position: 'top' as const,
+                  },
+                },
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              }}
+            />
+          </div>
         </Card>
       )}
     </div>

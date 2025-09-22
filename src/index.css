@@ -76,6 +76,41 @@
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  :root.dark {
+    /* Dark theme colors */
+    --background: 210 25% 8%;
+    --foreground: 210 10% 92%;
+    
+    --card: 210 25% 12%;
+    --card-foreground: 210 10% 92%;
+    --surface: 210 25% 10%;
+    --surface-foreground: 210 10% 92%;
+    
+    --primary: 120 50% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 120 40% 60%;
+    --primary-dark: 120 60% 30%;
+    
+    --secondary: 200 70% 45%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 200 50% 65%;
+    
+    --muted: 210 25% 15%;
+    --muted-foreground: 210 10% 65%;
+    --border: 210 25% 18%;
+    --input: 210 25% 15%;
+    
+    --success: 120 50% 45%;
+    --warning: 45 80% 55%;
+    --error: 0 60% 50%;
+    --info: 200 70% 55%;
+    
+    /* Adjust shadows for dark mode */
+    --shadow-soft: 0 2px 8px -2px hsl(210 25% 4% / 0.3);
+    --shadow-medium: 0 4px 16px -4px hsl(210 25% 4% / 0.4);
+    --shadow-strong: 0 8px 32px -8px hsl(210 25% 4% / 0.5);
+  }
 }
 
 @layer base {
