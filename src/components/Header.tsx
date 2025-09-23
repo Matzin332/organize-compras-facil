@@ -1,28 +1,27 @@
 import React from 'react';
-import { ShoppingCart, History, BarChart3, Home } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Home, ShoppingBag, Clock, TrendingUp, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import ThemeToggle from '@/components/ThemeToggle';
+
+type ViewType = 'home' | 'list' | 'history' | 'reports' | 'waste';
 
 interface HeaderProps {
-  currentView: 'home' | 'list' | 'history' | 'reports' | 'waste';
-  onViewChange: (view: 'home' | 'list' | 'history' | 'reports' | 'waste') => void;
+  currentView: ViewType;
+  onViewChange: (view: ViewType) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
-  const navItems = [
-    { id: 'home' as const, label: 'Início', icon: Home },
-    { id: 'list' as const, label: 'Lista', icon: ShoppingCart },
-    { id: 'history' as const, label: 'Histórico', icon: History },
-    { id: 'reports' as const, label: 'Relatórios', icon: BarChart3 },
-  ];
-
+const Header = ({ currentView, onViewChange }: HeaderProps) => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center">
-              <ShoppingCart className="w-5 h-5 text-primary-foreground" />
+          <div 
+            onClick={() => onViewChange('home')}
+            className="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity"
+          >
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+              <ShoppingBag className="w-5 h-5 text-white" />
             </div>
             <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Compras Organizadas
@@ -30,28 +29,56 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
           </div>
 
           {/* Navigation */}
-          <nav className="flex items-center space-x-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = currentView === item.id;
-              
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => onViewChange(item.id)}
-                  className={cn(
-                    "flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200",
-                    isActive
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  )}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span className="hidden sm:block">{item.label}</span>
-                </button>
-              );
-            })}
-          </nav>
+          <div className="flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-2">
+              <Button
+                variant={currentView === 'home' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => onViewChange('home')}
+              >
+                <Home className="w-4 h-4 mr-2" />
+                Início
+              </Button>
+
+              <Button
+                variant={currentView === 'list' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => onViewChange('list')}
+              >
+                <ShoppingBag className="w-4 h-4 mr-2" />
+                Lista
+              </Button>
+
+              <Button
+                variant={currentView === 'history' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => onViewChange('history')}
+              >
+                <Clock className="w-4 h-4 mr-2" />
+                Histórico
+              </Button>
+
+              <Button
+                variant={currentView === 'reports' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => onViewChange('reports')}
+              >
+                <TrendingUp className="w-4 h-4 mr-2" />
+                Relatórios
+              </Button>
+
+              <Button
+                variant={currentView === 'waste' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => onViewChange('waste')}
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                Desperdício
+              </Button>
+            </div>
+            
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </header>

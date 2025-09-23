@@ -89,12 +89,12 @@ const ShoppingListView: React.FC = () => {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <button
-                      onClick={() => toggleItem(item.id)}
-                      className="w-8 h-8 border-2 border-muted-foreground rounded-full flex items-center justify-center hover:border-primary transition-colors"
-                    >
-                      {item.completed && <Check className="w-5 h-5 text-primary" />}
-                    </button>
+                <button
+                  onClick={() => toggleItem(item.id)}
+                  className="w-8 h-8 border-2 border-muted-foreground rounded-full flex items-center justify-center hover:border-primary transition-all duration-300 hover:scale-110 animate-pulse-soft"
+                >
+                  {item.completed && <Check className="w-5 h-5 text-primary" />}
+                </button>
                     
                     <div className="flex items-center space-x-2">
                       <span className="text-xl">{CATEGORY_ICONS[item.category]}</span>
@@ -112,7 +112,7 @@ const ShoppingListView: React.FC = () => {
                     variant="ghost"
                     size="sm"
                     onClick={() => removeItem(item.id)}
-                    className="text-error hover:text-error hover:bg-error/10"
+                    className="text-error hover:text-error hover:bg-error/10 hover:scale-110 transition-all duration-300 hover:rotate-12"
                   >
                     <X className="w-4 h-4" />
                   </Button>
@@ -133,7 +133,7 @@ const ShoppingListView: React.FC = () => {
             {completedItems.map((item) => (
               <Card
                 key={item.id}
-                className="p-4 bg-muted/50 opacity-75 border-l-4 border-l-success"
+                className="p-4 bg-muted/50 opacity-75 border-l-4 border-l-success animate-fade-in"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">

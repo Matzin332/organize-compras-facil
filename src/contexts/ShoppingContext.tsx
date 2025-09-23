@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { ShoppingList, ShoppingItem, WasteReport, ItemCategory, WasteReason } from '@/types/shopping';
+import { toast } from '@/hooks/use-toast';
 
 interface ShoppingState {
   currentList: ShoppingList | null;
@@ -223,18 +224,41 @@ export const ShoppingProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const addItem = (item: Omit<ShoppingItem, 'id' | 'createdAt' | 'completed'>) => {
     dispatch({ type: 'ADD_ITEM', payload: item });
+    toast({
+      title: 'Item adicionado!',
+      description: `${item.name} foi adicionado à sua lista`,
+    });
   };
 
   const toggleItem = (itemId: string) => {
     dispatch({ type: 'TOGGLE_ITEM', payload: itemId });
+    const item = state.currentList?.items.find(i => i.id === itemId);
+    if (item) {
+      toast({
+        title: item.completed ? 'Item desmarcado' : 'Item concluído!',
+        description: `${item.name} foi ${item.completed ? 'removido da lista' : 'marcado como comprado'}`,
+      });
+    }
   };
 
   const removeItem = (itemId: string) => {
+    const item = state.currentList?.items.find(i => i.id === itemId);
     dispatch({ type: 'REMOVE_ITEM', payload: itemId });
+    if (item) {
+      toast({
+        title: 'Item removido',
+        description: `${item.name} foi removido da lista`,
+        variant: 'destructive',
+      });
+    }
   };
 
   const completeList = () => {
     dispatch({ type: 'COMPLETE_LIST' });
+    toast({
+      title: 'Lista finalizada!',
+      description: 'Sua lista foi salva no histórico',
+    });
   };
 
   const startNewList = (name?: string) => {
@@ -243,6 +267,10 @@ export const ShoppingProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const addWasteReport = (report: Omit<WasteReport, 'id' | 'date'>) => {
     dispatch({ type: 'ADD_WASTE_REPORT', payload: report });
+    toast({
+      title: 'Desperdício registrado',
+      description: `${report.itemName} foi adicionado ao relatório`,
+    });
   };
 
   const contextValue: ShoppingContextType = {
