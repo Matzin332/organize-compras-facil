@@ -154,7 +154,7 @@ const Index = () => {
           <AddItemForm />
         </div>
       ) : (
-        <ShoppingListView />
+        <ShoppingListView onAddItem={handleAddItem} />
       )}
     </div>
   );

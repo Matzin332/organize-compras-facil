@@ -6,7 +6,11 @@ import { useShoppingContext } from '@/contexts/ShoppingContext';
 import { CATEGORY_LABELS, CATEGORY_ICONS } from '@/types/shopping';
 import { cn } from '@/lib/utils';
 
-const ShoppingListView: React.FC = () => {
+interface ShoppingListViewProps {
+  onAddItem?: () => void;
+}
+
+const ShoppingListView: React.FC<ShoppingListViewProps> = ({ onAddItem }) => {
   const { currentList, toggleItem, removeItem, completeList } = useShoppingContext();
 
   if (!currentList || currentList.items.length === 0) {
@@ -14,9 +18,19 @@ const ShoppingListView: React.FC = () => {
       <div className="text-center py-12 animate-fade-in-up">
         <Package className="mx-auto w-16 h-16 text-muted-foreground mb-4" />
         <h3 className="text-xl font-semibold mb-2">Lista Vazia</h3>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground mb-6">
           Adicione alguns itens para começar suas compras organizadas!
         </p>
+        {onAddItem && (
+          <Button
+            onClick={onAddItem}
+            className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90"
+            size="lg"
+          >
+            <Package className="w-5 h-5 mr-2" />
+            Adicionar Primeiro Item
+          </Button>
+        )}
       </div>
     );
   }
