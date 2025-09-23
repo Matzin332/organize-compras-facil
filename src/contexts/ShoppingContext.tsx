@@ -158,7 +158,6 @@ interface ShoppingContextType extends ShoppingState {
   completeList: () => void;
   startNewList: (name?: string) => void;
   addWasteReport: (report: Omit<WasteReport, 'id' | 'date'>) => void;
-  loadData: (data: Partial<ShoppingState>) => void;
 }
 
 const ShoppingContext = createContext<ShoppingContextType | undefined>(undefined);
@@ -246,10 +245,6 @@ export const ShoppingProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     dispatch({ type: 'ADD_WASTE_REPORT', payload: report });
   };
 
-  const loadData = (data: Partial<ShoppingState>) => {
-    dispatch({ type: 'LOAD_DATA', payload: data });
-  };
-
   const contextValue: ShoppingContextType = {
     ...state,
     addItem,
@@ -258,7 +253,6 @@ export const ShoppingProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     completeList,
     startNewList,
     addWasteReport,
-    loadData,
   };
 
   return (

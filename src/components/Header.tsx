@@ -1,41 +1,18 @@
-import React, { useRef } from 'react';
-import { ShoppingCart, BarChart3, History, AlertTriangle, Download, Upload } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { useExportImport } from '@/hooks/useExportImport';
+import React from 'react';
+import { ShoppingCart, History, BarChart3, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export type ViewType = 'shopping' | 'reports' | 'history' | 'waste';
-
 interface HeaderProps {
-  activeView: ViewType;
-  onViewChange: (view: ViewType) => void;
+  currentView: 'home' | 'list' | 'history' | 'reports' | 'waste';
+  onViewChange: (view: 'home' | 'list' | 'history' | 'reports' | 'waste') => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ activeView, onViewChange }) => {
-  const { exportData, importData } = useExportImport();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      importData(file).then(() => {
-        if (fileInputRef.current) {
-          fileInputRef.current.value = '';
-        }
-      }).catch(() => {
-        if (fileInputRef.current) {
-          fileInputRef.current.value = '';
-        }
-      });
-    }
-  };
-
+const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
   const navItems = [
-    { id: 'shopping' as const, label: 'Compras', icon: ShoppingCart },
+    { id: 'home' as const, label: 'Início', icon: Home },
+    { id: 'list' as const, label: 'Lista', icon: ShoppingCart },
     { id: 'history' as const, label: 'Histórico', icon: History },
     { id: 'reports' as const, label: 'Relatórios', icon: BarChart3 },
-    { id: 'waste' as const, label: 'Desperdício', icon: AlertTriangle },
   ];
 
   return (
@@ -53,10 +30,10 @@ const Header: React.FC<HeaderProps> = ({ activeView, onViewChange }) => {
           </div>
 
           {/* Navigation */}
-          <div className="flex items-center space-x-1">
+          <nav className="flex items-center space-x-1">
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = activeView === item.id;
+              const isActive = currentView === item.id;
               
               return (
                 <button
@@ -74,40 +51,7 @@ const Header: React.FC<HeaderProps> = ({ activeView, onViewChange }) => {
                 </button>
               );
             })}
-          </div>
-          
-          {/* Actions */}
-          <div className="flex items-center space-x-2">
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept=".json"
-              onChange={handleImport}
-              className="hidden"
-            />
-            
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => fileInputRef.current?.click()}
-              className="hidden md:flex items-center space-x-1"
-            >
-              <Upload className="w-4 h-4" />
-              <span>Importar</span>
-            </Button>
-            
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={exportData}
-              className="hidden md:flex items-center space-x-1"
-            >
-              <Download className="w-4 h-4" />
-              <span>Exportar</span>
-            </Button>
-            
-            <ThemeToggle />
-          </div>
+          </nav>
         </div>
       </div>
     </header>
