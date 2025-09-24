@@ -18,6 +18,8 @@ type ShoppingAction =
   | { type: 'COMPLETE_LIST' }
   | { type: 'START_NEW_LIST'; payload?: string }
   | { type: 'ADD_WASTE_REPORT'; payload: Omit<WasteReport, 'id' | 'date'> }
+  | { type: 'CLEAR_HISTORY' }
+  | { type: 'CLEAR_WASTE_REPORTS' }
   | { type: 'LOAD_DATA'; payload: Partial<ShoppingState> };
 
 const initialState: ShoppingState = {
@@ -144,6 +146,18 @@ const shoppingReducer = (state: ShoppingState, action: ShoppingAction): Shopping
         ],
       };
 
+    case 'CLEAR_HISTORY':
+      return {
+        ...state,
+        shoppingHistory: [],
+      };
+
+    case 'CLEAR_WASTE_REPORTS':
+      return {
+        ...state,
+        wasteReports: [],
+      };
+
     case 'LOAD_DATA':
       return { ...state, ...action.payload };
 
@@ -159,6 +173,8 @@ interface ShoppingContextType extends ShoppingState {
   completeList: () => void;
   startNewList: (name?: string) => void;
   addWasteReport: (report: Omit<WasteReport, 'id' | 'date'>) => void;
+  clearHistory: () => void;
+  clearWasteReports: () => void;
 }
 
 const ShoppingContext = createContext<ShoppingContextType | undefined>(undefined);
@@ -273,14 +289,32 @@ export const ShoppingProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     });
   };
 
+  const clearHistory = () => {
+    dispatch({ type: 'CLEAR_HISTORY' });
+    toast({
+      title: 'Histórico limpo!',
+      description: 'Todo o histórico de compras foi removido',
+    });
+  };
+
+  const clearWasteReports = () => {
+    dispatch({ type: 'CLEAR_WASTE_REPORTS' });
+    toast({
+      title: 'Relatórios limpos!',
+      description: 'Todos os relatórios de desperdício foram removidos',
+    });
+  };
+
   const contextValue: ShoppingContextType = {
     ...state,
     addItem,
     toggleItem,
     removeItem,
-    completeList,
-    startNewList,
-    addWasteReport,
+        completeList,
+        startNewList,
+        addWasteReport,
+        clearHistory,
+        clearWasteReports,
   };
 
   return (

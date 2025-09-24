@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ShoppingBag, TrendingUp, Clock, Sparkles } from 'lucide-react';
+import { ShoppingBag, TrendingUp, Clock, Sparkles, Trash2 } from 'lucide-react';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import Header from '@/components/Header';
 import AddItemForm from '@/components/AddItemForm';
 import ShoppingListView from '@/components/ShoppingListView';
@@ -15,7 +16,7 @@ type ViewType = 'home' | 'list' | 'history' | 'reports' | 'waste';
 const Index = () => {
   const [currentView, setCurrentView] = useState<ViewType>('home');
   const [showAddForm, setShowAddForm] = useState(false);
-  const { currentList, shoppingHistory, wasteReports, startNewList } = useShoppingContext();
+  const { currentList, shoppingHistory, wasteReports, startNewList, clearHistory } = useShoppingContext();
 
   const handleViewChange = (view: ViewType) => {
     setCurrentView(view);
@@ -162,7 +163,36 @@ const Index = () => {
   const renderHistoryView = () => (
     <div className="space-y-6 animate-fade-in-up">
       <Card className="p-6">
-        <h2 className="text-2xl font-semibold mb-4">Histórico de Compras</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-semibold">Histórico de Compras</h2>
+          {shoppingHistory.length > 0 && (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="destructive" size="sm">
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Limpar Histórico
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Confirmar Limpeza</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Tem certeza que deseja limpar todo o histórico de compras? Esta ação não pode ser desfeita.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                  <AlertDialogAction 
+                    onClick={clearHistory}
+                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  >
+                    Limpar Histórico
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
+        </div>
         {shoppingHistory.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
             <Clock className="mx-auto w-12 h-12 mb-4" />

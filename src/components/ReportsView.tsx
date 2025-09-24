@@ -1,6 +1,8 @@
-import React from 'react';
-import { TrendingUp, PieChart, AlertTriangle, Leaf, Download } from 'lucide-react';
+import React, { useState } from 'react';
+import { TrendingUp, PieChart, AlertTriangle, Leaf, Download, Trash2 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { useShoppingContext } from '@/contexts/ShoppingContext';
 import { CATEGORY_LABELS, WASTE_REASON_LABELS } from '@/types/shopping';
 import {
@@ -27,7 +29,8 @@ ChartJS.register(
 );
 
 const ReportsView = () => {
-  const { wasteReports, shoppingHistory } = useShoppingContext();
+  const { wasteReports, shoppingHistory, clearWasteReports } = useShoppingContext();
+  const [showClearDialog, setShowClearDialog] = useState(false);
 
   const totalWaste = wasteReports.length;
   const totalValue = wasteReports.reduce((acc, report) => acc + (report.estimatedValue || 0), 0);
@@ -107,7 +110,36 @@ const ReportsView = () => {
       <Card className="p-6">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold">Relatórios de Desperdício</h2>
-          <ExportImportButtons />
+          <div className="flex gap-2">
+            <ExportImportButtons />
+            {wasteReports.length > 0 && (
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive" size="sm">
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    Limpar Relatórios
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Confirmar Limpeza</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Tem certeza que deseja limpar todos os relatórios de desperdício? Esta ação não pode ser desfeita.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                    <AlertDialogAction 
+                      onClick={clearWasteReports}
+                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    >
+                      Limpar Relatórios
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
+          </div>
         </div>
 
         {wasteReports.length === 0 ? (
