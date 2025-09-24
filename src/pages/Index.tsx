@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ShoppingBag, TrendingUp, Clock, Sparkles, Trash2 } from 'lucide-react';
+import { CATEGORY_ICONS } from '@/types/shopping';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import Header from '@/components/Header';
 import AddItemForm from '@/components/AddItemForm';
@@ -208,10 +209,29 @@ const Index = () => {
                     {list.completedAt?.toLocaleDateString('pt-BR')}
                   </span>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground mb-3">
                   {list.items.length} itens • 
                   {list.items.filter(item => item.completed).length} concluídos
                 </p>
+                
+                {/* Items bought */}
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-muted-foreground">Itens Comprados:</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {list.items.filter(item => item.completed).map((item) => (
+                      <div key={item.id} className="flex items-center space-x-2 p-2 bg-muted/30 rounded-md">
+                        <span className="text-sm">{CATEGORY_ICONS[item.category]}</span>
+                        <span className="text-sm">{item.name}</span>
+                        {item.quantity && (
+                          <span className="text-xs text-muted-foreground">({item.quantity})</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  {list.items.filter(item => item.completed).length === 0 && (
+                    <p className="text-xs text-muted-foreground italic">Nenhum item foi marcado como comprado</p>
+                  )}
+                </div>
               </Card>
             ))}
           </div>
