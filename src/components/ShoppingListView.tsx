@@ -116,7 +116,7 @@ const ShoppingListView: React.FC<ShoppingListViewProps> = ({ onAddItem }) => {
                         <h4 className="font-medium">{item.name}</h4>
                         <p className="text-sm text-muted-foreground">
                           {CATEGORY_LABELS[item.category]}
-                          {item.quantity && item.unit && ` • ${item.quantity} ${item.unit}`}
+                          {item.quantity && ` • ${item.quantity}`}
                         </p>
                       </div>
                     </div>
@@ -164,7 +164,7 @@ const ShoppingListView: React.FC<ShoppingListViewProps> = ({ onAddItem }) => {
                         <h4 className="font-medium line-through text-muted-foreground">{item.name}</h4>
                         <p className="text-sm text-muted-foreground">
                           {CATEGORY_LABELS[item.category]}
-                          {item.quantity && item.unit && ` • ${item.quantity} ${item.unit}`}
+                          {item.quantity && ` • ${item.quantity}`}
                         </p>
                       </div>
                     </div>
