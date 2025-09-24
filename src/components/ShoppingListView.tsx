@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, X, ShoppingBag, Package } from 'lucide-react';
+import { Check, X, ShoppingBag, Package, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useShoppingContext } from '@/contexts/ShoppingContext';
@@ -58,7 +58,19 @@ const ShoppingListView: React.FC<ShoppingListViewProps> = ({ onAddItem }) => {
       {/* Progress Header */}
       <Card className="p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-semibold">Lista Atual</h2>
+          <div className="flex items-center gap-3">
+            <h2 className="text-2xl font-semibold">Lista Atual</h2>
+            {onAddItem && (
+              <Button
+                size="sm"
+                onClick={onAddItem}
+                className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Adicionar Item
+              </Button>
+            )}
+          </div>
           <div className="text-right">
             <p className="text-sm text-muted-foreground">Progresso</p>
             <p className="text-lg font-semibold">
