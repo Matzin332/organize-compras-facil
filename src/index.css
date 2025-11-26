@@ -1,47 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-/* Compras Organizadas Design System - PWA Theme */
 
 @layer base {
   :root {
-    /* Core Background & Text */
     --background: 120 100% 97%;
     --foreground: 210 20% 15%;
-
-    /* Cards & Surfaces */
     --card: 0 0% 100%;
     --card-foreground: 210 20% 15%;
     --surface: 120 60% 95%;
     --surface-foreground: 210 20% 15%;
-
-    /* Brand Colors - Sustainability Theme */
-    --primary: 120 60% 50%;        /* Fresh Green */
+    --primary: 120 60% 50%;
     --primary-foreground: 0 0% 100%;
     --primary-light: 120 45% 65%;
     --primary-dark: 120 70% 35%;
-
-    --secondary: 200 80% 50%;       /* Ocean Blue */
+    --secondary: 200 80% 50%;
     --secondary-foreground: 0 0% 100%;
     --secondary-light: 200 60% 70%;
-
-    --accent: 35 90% 55%;          /* Vibrant Orange */
+    --accent: 35 90% 55%;
     --accent-foreground: 0 0% 100%;
     --accent-light: 35 85% 70%;
-
-    /* Category Colors */
-    --category-fruits: 350 70% 60%;     /* Pink-Red */
-    --category-vegetables: 120 60% 45%;  /* Green */
-    --category-dairy: 200 80% 65%;      /* Light Blue */
-    --category-meat: 15 80% 55%;        /* Red-Orange */
-    --category-grains: 45 70% 60%;      /* Golden */
-    --category-beverages: 280 60% 55%;  /* Purple */
-    --category-cleaning: 190 70% 50%;   /* Cyan */
-    --category-personal: 300 50% 60%;   /* Pink */
-
-    /* Status Colors */
+    --category-fruits: 350 70% 60%;
+    --category-vegetables: 120 60% 45%;
+    --category-dairy: 200 80% 65%;
+    --category-meat: 15 80% 55%;
+    --category-grains: 45 70% 60%;
+    --category-beverages: 280 60% 55%;
+    --category-cleaning: 190 70% 50%;
+    --category-personal: 300 50% 60%;
     --success: 120 60% 50%;
     --success-foreground: 0 0% 100%;
     --warning: 45 90% 60%;
@@ -50,56 +38,39 @@
     --error-foreground: 0 0% 100%;
     --info: 200 80% 60%;
     --info-foreground: 0 0% 100%;
-
-    /* Neutral Colors */
     --muted: 120 30% 92%;
     --muted-foreground: 210 15% 55%;
     --border: 120 20% 88%;
     --input: 120 20% 92%;
     --ring: 120 60% 50%;
-
-    /* Shadows & Effects */
     --shadow-soft: 0 2px 8px -2px hsl(210 20% 15% / 0.1);
     --shadow-medium: 0 4px 16px -4px hsl(210 20% 15% / 0.15);
     --shadow-strong: 0 8px 32px -8px hsl(210 20% 15% / 0.2);
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
-
-    /* Layout */
     --header-height: 4rem;
     --fab-size: 3.5rem;
     --radius: 0.75rem;
     --radius-sm: 0.5rem;
     --radius-lg: 1rem;
-
-    /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
-    /* Core Background & Text */
     --background: 210 25% 8%;
     --foreground: 120 20% 95%;
-
-    /* Cards & Surfaces */
     --card: 210 25% 12%;
     --card-foreground: 120 20% 95%;
     --surface: 210 25% 10%;
     --surface-foreground: 120 20% 95%;
-
-    /* Brand Colors remain the same but adapt foreground */
     --primary-foreground: 210 25% 8%;
     --secondary-foreground: 210 25% 8%;
     --accent-foreground: 210 25% 8%;
-
-    /* Neutral Colors */
     --muted: 210 25% 15%;
     --muted-foreground: 120 15% 65%;
     --border: 210 25% 20%;
     --input: 210 25% 15%;
-
-    /* Shadows & Effects for dark mode */
     --shadow-soft: 0 2px 8px -2px hsl(210 25% 0% / 0.3);
     --shadow-medium: 0 4px 16px -4px hsl(210 25% 0% / 0.4);
     --shadow-strong: 0 8px 32px -8px hsl(210 25% 0% / 0.5);
@@ -122,7 +93,6 @@
 }
 
 @layer components {
-  /* Floating Action Button */
   .fab {
     @apply fixed rounded-full shadow-lg transition-all duration-300 hover:scale-110 active:scale-95;
     width: var(--fab-size);
@@ -138,7 +108,6 @@
     @apply bg-gradient-to-br from-secondary to-secondary-light text-secondary-foreground;
   }
 
-  /* Category Cards */
   .category-card {
     @apply rounded-lg p-4 transition-all duration-300 hover:scale-105 cursor-pointer;
     box-shadow: var(--shadow-soft);
@@ -153,7 +122,6 @@
   .category-cleaning { @apply bg-[hsl(var(--category-cleaning))] text-white; }
   .category-personal { @apply bg-[hsl(var(--category-personal))] text-white; }
 
-  /* Glass morphism effects */
   .glass {
     @apply backdrop-blur-md bg-white/80 border border-white/20;
   }
@@ -162,7 +130,6 @@
     @apply backdrop-blur-md bg-black/20 border border-white/10;
   }
 
-  /* Animations */
   .animate-fade-in-up {
     animation: fadeInUp 0.6s ease-out;
   }

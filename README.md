@@ -1,73 +1,115 @@
-# Welcome to your Lovable project
+# SmartGroceries "Compras simples, vida organizada!"
 
-## Project info
+## Integrantes
+- Matheus Alexandre
+- William Magalhães
+- Davi Augusto
+- Anny Saldanha
+- Denny Junio
+- Líder: [inserir nome do líder]
 
-**URL**: https://lovable.dev/projects/186d29b1-f83c-4a5f-9a44-028a1bbe92d0
+## Problema
+Pessoas frequentemente esquecem o que precisam comprar no mercado, o que resulta em desperdício de alimentos e gastos desnecessários, dificultando um melhor controle do consumo familiar.
 
-## How can I edit this code?
+## Cliente-alvo
+Famílias e consumidores domésticos que desejam praticidade, organização e menos desperdício.
 
-There are several ways of editing your application.
+## Solução Proposta
+Um Progressive Web App (PWA) simples, leve e acessível, que permite:
+- Criação de listas de compras por categoria (alimentos, limpeza, higiene).
+- Registro de compras com data, permitindo acompanhar hábitos de consumo.
+- Questionário rápido após determinado período para identificar itens desperdiçados e motivo (estragou, comprou demais, esqueceu de usar).
+- Relatórios simples mostrando os itens mais desperdiçados e causas do desperdício.
+- Funcionalidade offline-first para uso dentro do mercado.
+- Instalação direta como PWA (leve e rápido).
 
-**Use Lovable**
+## Diferenciais
+- Minimalista e simples (sem propagandas, sem excesso de funções).
+- Funciona sem internet e sem cadastro obrigatório.
+- Adaptado à realidade brasileira.
+- Foco no desperdício: coleta informações do usuário e gera insights úteis.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/186d29b1-f83c-4a5f-9a44-028a1bbe92d0) and start prompting.
+## ODS 12 – Consumo e Produção Responsáveis
+Meta 12.3: até 2030, reduzir pela metade o desperdício de alimentos per capita mundial, em nível de varejo e do consumidor, e reduzir as perdas de alimentos ao longo das cadeias de produção e abastecimento.
 
-Changes made via Lovable will be committed automatically to this repo.
+## Entregáveis
+- Documento de requisitos + protótipo de alta fidelidade.
+- MVP funcional (listas + questionário + relatórios).
+- Relatório técnico detalhado.
+- Defesa e apresentação final.
 
-**Use your preferred IDE**
+## Conclusão
+A solução SmartGroceries é a resposta prática e inovadora para o problema da falta de organização nas compras domésticas, que gera desperdício e gastos desnecessários. Com um PWA leve e acessível, oferecemos praticidade para o usuário, redução de desperdícios e mais controle financeiro para as famílias. O foco inicial será em funcionalidades essenciais e de fácil uso, para gerar impacto imediato na vida do usuário.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Tecnologias Utilizadas
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **Vite** - Build tool rápido
+- **React** - Biblioteca JavaScript para interfaces
+- **TypeScript** - JavaScript com tipagem estática
+- **Tailwind CSS** - Framework CSS utilitário
+- **shadcn/ui** - Componentes UI acessíveis
+- **React Router** - Roteamento para aplicações React
+- **React Query** - Gerenciamento de estado de servidor
 
-Follow these steps:
+## Funcionalidades
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- Lista de compras organizada por categorias
+- Relatórios de desperdício
+- Interface responsiva e acessível
+- Suporte a Progressive Web App (PWA)
+- Tema claro/escuro
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Como executar
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Pré-requisitos
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+- Node.js (versão 18 ou superior)
+- npm ou yarn
+
+### Instalação
+
+1. Clone o repositório:
+```bash
+git clone <URL_DO_REPOSITORIO>
+cd organize-compras-facil
+```
+
+2. Instale as dependências:
+```bash
+npm install
+```
+
+3. Execute o servidor de desenvolvimento:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Abra [http://localhost:8080](http://localhost:8080) no navegador.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Scripts disponíveis
 
-**Use GitHub Codespaces**
+- `npm run dev` - Inicia o servidor de desenvolvimento
+- `npm run build` - Cria uma build de produção
+- `npm run preview` - Visualiza a build de produção localmente
+- `npm run lint` - Executa o linter
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Estrutura do Projeto
 
-## What technologies are used for this project?
+```
+src/
+├── components/     # Componentes reutilizáveis
+├── contexts/       # Contextos React
+├── hooks/          # Hooks customizados
+├── lib/            # Utilitários
+├── pages/          # Páginas da aplicação
+├── types/          # Definições de tipos TypeScript
+└── utils/          # Funções utilitárias
+```
 
-This project is built with:
+## Contribuição
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
 
-## How can I deploy this project?
+## Licença
 
-Simply open [Lovable](https://lovable.dev/projects/186d29b1-f83c-4a5f-9a44-028a1bbe92d0) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Este projeto está sob a licença MIT.

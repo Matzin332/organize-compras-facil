@@ -192,13 +192,11 @@ const STORAGE_KEY = 'compras-organizadas-data';
 export const ShoppingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(shoppingReducer, initialState);
 
-  // Load data from localStorage on mount
   useEffect(() => {
     try {
       const savedData = localStorage.getItem(STORAGE_KEY);
       if (savedData) {
         const parsedData = JSON.parse(savedData);
-        // Convert date strings back to Date objects
         if (parsedData.currentList) {
           parsedData.currentList.createdAt = new Date(parsedData.currentList.createdAt);
           parsedData.currentList.items = parsedData.currentList.items.map((item: any) => ({
@@ -229,7 +227,6 @@ export const ShoppingProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   }, []);
 
-  // Save data to localStorage whenever state changes
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
