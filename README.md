@@ -1,4 +1,4 @@
-# SmartGroceries "Compras simples, vida organizada!"
+# Compras Organizadas "Compras simples, vida organizada!"
 
 ## Integrantes
 - Matheus Alexandre
@@ -6,7 +6,7 @@
 - Davi Augusto
 - Anny Saldanha
 - Denny Junio
-- Líder: [inserir nome do líder]
+- Líder: Matheus Alexandre 
 
 ## Problema
 Pessoas frequentemente esquecem o que precisam comprar no mercado, o que resulta em desperdício de alimentos e gastos desnecessários, dificultando um melhor controle do consumo familiar.
